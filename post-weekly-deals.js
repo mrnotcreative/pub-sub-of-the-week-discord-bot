@@ -59,17 +59,11 @@ function formatMessage(weekStart, deals) {
   const subNames = deals.map((d) => d.sub_name);
   const subList = joinWithAnd(subNames);
 
-  const lines = deals.map((d) => {
-    const price = (d.price ?? 'N/A').replace(/^Starts at /, '');
-    const sale = d.sale ? ` (${d.sale})` : '';
-    return `• **${d.sub_name}** — ${price}${sale}`;
-  });
+  const phrase = deals.length === 1
+    ? "This week's sub of the week is"
+    : "This week's subs of the week are";
 
-  return [
-    `🥪 This week's sub of the week is **${subList}**!`,
-    ...lines,
-    `🔗 <https://www.pubsub.sale/>`,
-  ].join('\n');
+  return `${phrase} **${subList}**!`;
 }
 
 // Turns ["A"] -> "A", ["A","B"] -> "A and B", ["A","B","C"] -> "A, B, and C"
