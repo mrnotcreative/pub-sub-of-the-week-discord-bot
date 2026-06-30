@@ -56,11 +56,8 @@ function getLatestWeekStart(deals) {
 }
 
 function formatMessage(weekStart, deals) {
-  const dateLabel = new Date(`${weekStart}T00:00:00`).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const subNames = deals.map((d) => d.sub_name);
+  const subList = joinWithAnd(subNames);
 
   const lines = deals.map((d) => {
     const price = (d.price ?? 'N/A').replace(/^Starts at /, '');
@@ -69,10 +66,17 @@ function formatMessage(weekStart, deals) {
   });
 
   return [
-    `🥪 **Publix Sub of the Week — ${dateLabel}**`,
+    `🥪 This week's sub of the week is **${subList}**!`,
     ...lines,
     `🔗 <https://www.pubsub.sale/>`,
   ].join('\n');
+}
+
+// Turns ["A"] -> "A", ["A","B"] -> "A and B", ["A","B","C"] -> "A, B, and C"
+function joinWithAnd(items) {
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
 }
 
 async function postToDiscord(content) {
