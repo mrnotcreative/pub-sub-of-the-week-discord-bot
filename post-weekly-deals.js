@@ -12,6 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_URL = 'https://www.pubsub.sale/sub_deals_data.json';
 const STATE_FILE = path.join(__dirname, 'state.json');
 const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+const FORCE_POST = process.env.FORCE_POST === 'true';
 
 async function main() {
   if (!WEBHOOK_URL) {
@@ -23,7 +24,7 @@ async function main() {
   const currentDeals = deals.filter((d) => d.week_start === latestWeekStart);
 
   const state = loadState();
-  if (state.lastPostedWeek === latestWeekStart) {
+  if (!FORCE_POST && state.lastPostedWeek === latestWeekStart) {
     console.log(`Week of ${latestWeekStart} already posted. Skipping.`);
     return;
   }
