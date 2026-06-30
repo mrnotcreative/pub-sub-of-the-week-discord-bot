@@ -1,0 +1,13 @@
+{
+  "name": "pubsub-discord-poster",
+  "version": "1.0.0",
+  "description": "Posts the weekly Publix Sub of the Week deal to a Discord channel via webhook.",
+  "type": "module",
+  "main": "post-weekly-deals.js",
+  "scripts": {
+    "post": "node post-weekly-deals.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
