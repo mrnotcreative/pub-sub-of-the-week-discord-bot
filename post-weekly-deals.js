@@ -64,7 +64,7 @@ function formatMessage(weekStart, deals) {
     ? "This week's sub of the week is"
     : "This week's subs of the week are";
 
-  return `${phrase} **${subList}**!`;
+  return `${phrase} **${subList}**`;
 }
 
 // Turns ["A"] -> "A", ["A","B"] -> "A and B", ["A","B","C"] -> "A, B, and C"
